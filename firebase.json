@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/finance-tracker/browser",
+    "public": "finance-tracker/dist/finance-tracker/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

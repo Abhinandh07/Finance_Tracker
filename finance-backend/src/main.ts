@@ -9,6 +9,8 @@ async function bootstrap() {
       'http://localhost:4200',
       'https://finance-tracker-6d40c.web.app',
       'https://financetracker1.vercel.app',
+      'https://finance-backend-4jku41zuj-godfathers-projects-80a09c32.vercel.app',
+      'https://finance-backend-gvrxqjcsz-godfathers-projects-80a09c32.vercel.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
