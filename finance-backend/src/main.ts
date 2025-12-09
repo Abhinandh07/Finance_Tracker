@@ -8,6 +8,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:4200',
       'https://finance-tracker-6d40c.web.app',
+      'https://financetracker1.vercel.app',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,

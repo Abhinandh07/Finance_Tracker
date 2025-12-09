@@ -28,8 +28,8 @@ export class LoanService {
     if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
       return 'http://localhost:3000';
     }
-    // For production - Vercel backend
-    return 'https://finance-backend-xxxxx.vercel.app'; // Replace xxxxx with your actual Vercel deployment
+    // For production - Vercel backend (UPDATE THIS WITH YOUR ACTUAL URL)
+    return 'https://finance-backend-yourproject.vercel.app';
   }
 
   createLoan(loan: Loan): Observable<Loan> {
