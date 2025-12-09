@@ -21,7 +21,7 @@ export class FinanceService {
       return 'http://localhost:3000';
     }
     // For production - Vercel backend
-    return 'https://finance-backend-phi.vercel.app';
+    return 'https://financetracker1.vercel.app';
   }
 
   public loadTransactions(): void {
