@@ -28,8 +28,8 @@ export class LoanService {
     if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
       return 'http://localhost:3000';
     }
-    // For production - Vercel backend
-    return 'https://finance-backend-675x7967e-godfathers-projects-80a09c32.vercel.app';
+    // For production - Render backend
+    return 'https://finance-backend-05jb.onrender.com';
   }
 
   createLoan(loan: Loan): Observable<Loan> {
