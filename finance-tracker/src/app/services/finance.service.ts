@@ -21,7 +21,7 @@ export class FinanceService {
       return 'http://localhost:3000';
     }
     // For production - Vercel backend
-    return 'https://finance-backend-au0w770r3-godfathers-projects-80a09c32.vercel.app';
+    return 'https://finance-backend-5ore82gyg-godfathers-projects-80a09c32.vercel.app';
   }
 
   public loadTransactions(): void {
