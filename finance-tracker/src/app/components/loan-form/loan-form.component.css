@@ -1,0 +1,4 @@
+/* Dark mode styling for Loan Form */
+:host {
+  display: block;
+}

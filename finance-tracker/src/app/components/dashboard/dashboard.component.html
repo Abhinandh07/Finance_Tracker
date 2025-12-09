@@ -1,0 +1,137 @@
+<div class="min-h-screen bg-gray-900">
+  <!-- Header -->
+  <header class="bg-gray-800 shadow-sm border-b border-gray-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <h1 class="text-3xl font-bold text-white">Finance Tracker</h1>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Income Card -->
+      <div class="bg-gray-800 rounded-lg shadow p-6 border border-gray-700">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm font-medium">Total Income</p>
+            <p class="text-3xl font-bold text-green-400 mt-2">
+              ${{ totalIncome.toFixed(2) }}
+            </p>
+          </div>
+          <div class="bg-green-900 p-3 rounded-full">
+            <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Expenses Card -->
+      <div class="bg-gray-800 rounded-lg shadow p-6 border border-gray-700">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm font-medium">Total Expenses</p>
+            <p class="text-3xl font-bold text-red-400 mt-2">
+              ${{ totalExpenses.toFixed(2) }}
+            </p>
+          </div>
+          <div class="bg-red-900 p-3 rounded-full">
+            <svg class="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Balance Card -->
+      <div class="bg-gray-800 rounded-lg shadow p-6 border border-gray-700">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-400 text-sm font-medium">Balance</p>
+            <p [ngClass]="balance >= 0 ? 'text-blue-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
+              ${{ balance.toFixed(2) }}
+            </p>
+          </div>
+          <div class="bg-blue-900 p-3 rounded-full">
+            <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Budget Gauge -->
+     <app-budget-gauge></app-budget-gauge>  
+    
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column: Transaction List and Form -->
+      <div class="lg:col-span-2">
+        <!-- Add Transaction Button -->
+        <div class="mb-6">
+          <button
+            (click)="toggleAddForm()"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200"
+          >
+            {{ showAddForm ? '✕ Cancel' : '+ Add Transaction' }}
+          </button>
+        </div>
+
+        <!-- Add Transaction Form -->
+        <app-transaction-form
+          *ngIf="showAddForm"
+          (transactionAdded)="onTransactionAdded()"
+          class="mb-8"
+        ></app-transaction-form>
+
+        <!-- Transaction List -->
+        <app-transaction-list
+          [transactions]="transactions"
+          (transactionDeleted)="onTransactionDeleted($event)"
+        ></app-transaction-list>
+      </div>
+
+      <!-- Right Column: Breakdown and Summary -->
+      <div class="space-y-6">
+        <!-- Monthly Summary -->
+        <app-monthly-summary
+          [totalIncome]="totalIncome"
+          [totalExpenses]="totalExpenses"
+          [balance]="balance"
+        ></app-monthly-summary>
+
+        <!-- Category Breakdown -->
+        <app-category-breakdown
+          [transactions]="transactions"
+        ></app-category-breakdown>
+      </div>
+    </div>
+
+    <!-- Loans Section -->
+    <div class="mt-12 pt-12 border-t border-gray-700">
+      <h2 class="text-3xl font-bold text-white mb-8">Loans & Borrowing</h2>
+      
+      <!-- Add Loan Button -->
+      <div class="mb-6">
+        <button
+          (click)="toggleAddLoanForm()"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition duration-200"
+        >
+          {{ showAddLoanForm ? '✕ Cancel' : '+ Add Loan' }}
+        </button>
+      </div>
+
+      <!-- Add Loan Form -->
+      <app-loan-form
+        *ngIf="showAddLoanForm"
+        (transactionAdded)="onLoanAdded()"
+        class="mb-8"
+      ></app-loan-form>
+
+      <!-- Loan List -->
+      <app-loan-list></app-loan-list>
+    </div>
+  </main>
+</div>

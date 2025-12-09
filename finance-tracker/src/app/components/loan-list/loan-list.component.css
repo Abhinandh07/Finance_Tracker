@@ -1,0 +1,12 @@
+/* Dark mode styling for Loan List */
+:host {
+  display: block;
+}
+
+table {
+  background-color: #1f2937;
+}
+
+tbody tr {
+  background-color: #111827;
+}

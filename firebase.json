@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": "dist/finance-tracker/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "functions": {
+    "source": "finance-backend",
+    "runtime": "nodejs20",
+    "timeoutSeconds": 540,
+    "memory": "512MB"
+  }
+}

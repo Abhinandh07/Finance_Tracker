@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  date        DateTime
+  description String
+  amount      Float
+  category    String
+  type        String   // "income" or "expense"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([date])
+  @@index([type])
+}
+
+model Budget {
+  id        String   @id @default(cuid())
+  amount    Float    @default(2000)
+  month     Int      // 0-11
+  year      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([month, year])
+}
+
+model Loan {
+  id              String   @id @default(cuid())
+  amount          Float
+  borrowerName    String
+  borrowerPhone   String
+  dueDate         DateTime
+  status          String   @default("pending")
+  returnedDate    DateTime?
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([dueDate])
+  @@index([status])
+}

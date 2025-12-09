@@ -1,0 +1,35 @@
+<div class="bg-gray-800 rounded-lg shadow p-6 border border-gray-700">
+  <h3 class="text-lg font-semibold text-white mb-4">Expense Breakdown</h3>
+
+  <div *ngIf="getTotalExpenses() === 0" class="text-center text-gray-400 py-8">
+    No expenses yet
+  </div>
+
+  <div *ngIf="getTotalExpenses() > 0" class="space-y-4">
+    <div *ngFor="let category of getExpenseCategories()" class="space-y-2">
+      <div class="flex justify-between items-center">
+        <span class="text-sm font-medium text-gray-300">{{ category }}</span>
+        <div class="text-right">
+          <p class="text-sm font-semibold text-gray-300">
+            ${{ getCategoryTotal(category).toFixed(2) }}
+          </p>
+          <p class="text-xs text-gray-400">{{ getPercentage(category) }}%</p>
+        </div>
+      </div>
+      <div class="w-full bg-gray-700 rounded-full h-2">
+        <div
+          [ngClass]="getCategoryColor(category)"
+          class="h-2 rounded-full transition-all duration-300"
+          [style.width.%]="getPercentage(category)"
+        ></div>
+      </div>
+    </div>
+
+    <div class="mt-6 pt-4 border-t border-gray-700">
+      <div class="flex justify-between items-center">
+        <span class="font-semibold text-gray-300">Total Expenses</span>
+        <span class="text-lg font-bold text-red-400">${{ getTotalExpenses().toFixed(2) }}</span>
+      </div>
+    </div>
+  </div>
+</div>

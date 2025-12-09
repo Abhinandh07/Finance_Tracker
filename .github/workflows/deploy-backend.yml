@@ -1,0 +1,42 @@
+name: Deploy Backend to Cloud Run
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'finance-backend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: finance-tracker-6d40c
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      
+      - name: Configure Docker to use gcloud as credential helper
+        run: gcloud auth configure-docker
+      
+      - name: Build Docker image
+        run: |
+          docker build -t gcr.io/finance-tracker-6d40c/finance-backend:latest ./finance-backend
+      
+      - name: Push Docker image to GCR
+        run: |
+          docker push gcr.io/finance-tracker-6d40c/finance-backend:latest
+      
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy finance-backend \
+            --image gcr.io/finance-tracker-6d40c/finance-backend:latest \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --set-env-vars DATABASE_URL=${{ secrets.DATABASE_URL }}
