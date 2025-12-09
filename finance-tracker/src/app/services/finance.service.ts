@@ -7,12 +7,21 @@ import { Transaction, TransactionType } from '../models/transaction.model';
   providedIn: 'root'
 })
 export class FinanceService {
-  private apiUrl = 'http://localhost:3000/transactions';
+  private apiUrl = this.getApiUrl() + '/transactions';
   private transactionsSubject = new BehaviorSubject<Transaction[]>([]);
   public transactions$ = this.transactionsSubject.asObservable();
 
   constructor(private http: HttpClient) {
     this.loadTransactions();
+  }
+
+  private getApiUrl(): string {
+    // For local development
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      return 'http://localhost:3000';
+    }
+    // For production - replace with your Render/deployed backend URL
+    return 'https://your-backend-url.onrender.com';
   }
 
   public loadTransactions(): void {
